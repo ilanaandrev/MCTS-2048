@@ -128,14 +128,23 @@ class TFE:
     def isWin(self):
         return self.grid.max() >= MAX_VALUE
 
+    # Check if loosing state. Expensive! Calls availDir
     def isLose(self):
-        choice = ["d", "u", "r", "l"]
+        return (len(self.availDir()) == 0)
+
+    # check available directions. Expensive! Takes O(n^2 * 4)
+    # Saves a snapshot of each grid. Key and grid.
+    def availDir(self):
+        choice = ["u", "d", "l", "r"]
+        # check if empyt
+        if self.grid.max() == 0:
+            return {k: np.copy(self.grid) for k in choice}
+    
+        result = {}
         gridDup = np.copy(self.grid)
         for c in choice:
             self.moveGrid(c)
             if not np.array_equal(self.grid, gridDup):
-                self.grid = np.copy(gridDup)
-                return False
+                result[c] = self.grid
             self.grid = np.copy(gridDup)
-
-        return True
+        return result

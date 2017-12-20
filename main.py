@@ -6,18 +6,13 @@
 ############################################
 
 from TFE import *
+from MCT import *
 import random as rnd
 
 def main():
     tfe = TFE()
-    tfe.putNew()
-    print tfe.grid
-
-    while (not tfe.isLose()) or tfe.isWin():
-        select = rnd.randint(0, 3)
-        tfe.moveGrid(MOV_OPT[select])
-        tfe.putNew()
-        print tfe.grid
+    mct = MCT(tfe)
+    print mct.run(1)
 
 if __name__ == '__main__':
     main()
