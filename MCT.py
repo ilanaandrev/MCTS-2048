@@ -5,7 +5,7 @@ import math
 import time
 
 # Number of 0's minimum before starting non-greedy approach
-GREEDY_THRESH = 8
+GREEDY_THRESH = 12
 # Allow greedy algorithm for the first few squares.
 GREEDY_CONTROL = True
 
@@ -59,7 +59,7 @@ class Node:
     # given current grid, generate some options
     def genOpt(self, grid):
         # Can save if necessary
-        SIM.grid = grid
+        SIM.grid = np.copy(grid)
         after_grid = SIM.availDir()
 
         # Move
@@ -100,13 +100,10 @@ class Node:
 
 
 class MCT:
-    def __init__(self, tfe):
-        self.tfe = tfe
-
     # Greedy algorithm for faster approach
     # Select the direction with highest direct yield
-    def greedy(self):
-        res = self.tfe.availDir()
+    def greedy(self, tfe):
+        res = tfe.availDir()
         scores = []
         dir_save = []
         for k, v in res.iteritems():
@@ -120,11 +117,11 @@ class MCT:
 
     # Run the AI
     # Returns best direction to select next.
-    def run(self, sec, noNone = False):
-        if GREEDY_CONTROL and np.argwhere(self.tfe.grid.flatten() == 0).size > GREEDY_THRESH:
-            return self.greedy()
+    def run(self, tfe, sec, noNone = False):
+        if GREEDY_CONTROL and np.argwhere(tfe.grid.flatten() == 0).size > GREEDY_THRESH:
+            return self.greedy(tfe)
     
-        root = Node(None, -1, self.tfe.grid)
+        root = Node(None, -1, tfe.grid)
         print "\nBRANCHES: " + str(root.children_options.size)
         
         trav = []
@@ -160,7 +157,7 @@ class MCT:
             # Save the last node / leaf node
             trav.append(cur_node)
 
-            if self.tfe.isWin():
+            if tfe.isWin():
                 self.backPropagate(trav, 1)
             else:
                 self.backPropagate(trav, 0)
