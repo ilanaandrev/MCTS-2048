@@ -4,6 +4,7 @@ import random as rnd
 import math
 import time
 
+# Number of 0's minimum before starting non-greedy approach
 GREEDY_THRESH = 8
 # Allow greedy algorithm for the first few squares.
 GREEDY_CONTROL = True
@@ -120,7 +121,7 @@ class MCT:
     # Run the AI
     # Returns best direction to select next.
     def run(self, sec, noNone = False):
-        if GREEDY_CONTROL and np.argwhere(self.tfe.grid == 0).size > GREEDY_THRESH:
+        if GREEDY_CONTROL and np.argwhere(self.tfe.grid.flatten() == 0).size > GREEDY_THRESH:
             return self.greedy()
     
         root = Node(None, -1, self.tfe.grid)

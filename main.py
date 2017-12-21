@@ -10,6 +10,8 @@ from MCT import *
 import time
 import random as rnd
 
+MONTE_CARLO_RUN = 5
+
 def test_tfe():
     tfe = TFE()
     tfe.grid = np.array([32, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ,0 ,0 ,0 ,0]).reshape((4,4))
@@ -31,7 +33,7 @@ def main():
         start = time.clock() 
 
         print "*********************"
-        act = mct.run(5, True)
+        act = mct.run(MONTE_CARLO_RUN, True)
         print "AI SELECT ACTION: " + act
         print "*********************"
         print "BEFORE: "
