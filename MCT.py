@@ -5,7 +5,7 @@ import math
 import time
 
 # Number of 0's minimum before starting non-greedy approach
-GREEDY_THRESH = 12
+GREEDY_THRESH = 15
 # Allow greedy algorithm for the first few squares.
 GREEDY_CONTROL = True
 
@@ -182,6 +182,10 @@ class MCT:
             # calculate ucb
             if n.parent != None:
                 n.UCB  = (n.total_wins /n.total_games) + 1.6 * math.sqrt(math.log(n.parent.total_games + 1) / n.total_games) 
+                # update siblings as well
+                for s in n.parent.children:
+                    s.UCB = (s.total_wins /s.total_games) + 1.6 * math.sqrt(math.log(s.parent.total_games + 1) / s.total_games)
+
 
     def getHighestUCB(self, children):
         # Check UCB, select highest UCB

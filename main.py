@@ -9,23 +9,17 @@ from TFE import *
 from MCT import *
 import time
 import random as rnd
+import sys
 
-MONTE_CARLO_RUN = 10
-
-def test_tfe():
-    tfe = TFE()
-    tfe.grid = np.array([2, 2, 8, 2, 0, 8, 32, 32, 0, 0,2, 4, 0, 0, 0, 2]).reshape((4,4))
-    print tfe.grid
-    tfe.moveGrid("d")
-    print tfe.grid
-    tfe.moveGrid("r")
-    print tfe.grid
+MONTE_CARLO_RUN = 120
 
 def main():
     tfe = TFE()
     # generate a new
-    tfe.putNew()
-    print "STARTING BOARD: "
+    # tfe.putNew()
+    # tfe.putNew()
+    print "STARTIG BOARD: "
+    tfe.grid = np.array([0,0,0,0,0,0,2,0,64,4,0,8,4,2,2,2]).reshape((4,4))
     print tfe.grid
     print ""
 
@@ -66,6 +60,8 @@ def main():
 
         print "TIME TAKEN FOR STEP: " + str(time.clock() - start)
         print ""
+        # Flush it
+        sys.stdout.flush()
     
     print "FINISHED: "
     print tfe.grid
@@ -81,5 +77,4 @@ def main():
 
 
 if __name__ == '__main__':
-    #test_tfe()
     main()
