@@ -81,7 +81,7 @@ class TFE:
             else:
                 break
         grid[dy-yval, dx-xval] = grid[y, x]
-        if dy-yval != y and dx-xval != x:
+        if dy-yval != y or dx-xval != x:
             grid[y, x] = 0
 
 
