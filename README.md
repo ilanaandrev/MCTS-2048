@@ -71,4 +71,4 @@ Sure! I mean, MCST is a methodology that has been known for a while. If you feel
 ## About the Author
 More info about the author can be found at the [ProgrammingIncluded website](http://programmingincluded.com/aboutme/)
 
-I am always looking for feedback. If someone could fund me for my masters for the quarters when I don't have funds, I would greaty appreciate it....
+I am always looking for feedback. If someone could fund me for my masters for the quarters when I don't have funds (the uncertainty of CSE Master's gradlife) or would like to hire me, I would greaty appreciate it, thanks!

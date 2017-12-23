@@ -9104,3 +9104,15 @@ AFTER:
 
 TIME TAKEN FOR STEP: 5.00142301291
 
+FINISHED: 
+[[  2 512   8   2]
+ [  4   8 256  16]
+ [  8  16 128   8]
+ [  2   4  16   4]]
+
+IS WIN?: 
+False
+
+IS LOSE?: 
+True
+
