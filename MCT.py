@@ -1,103 +1,11 @@
 from TFE import *
+from MCTNode import *
+from mct_config import *
+
 import numpy as np
 import random as rnd
 import math
 import time
-
-# Number of 0's minimum before starting non-greedy approach
-GREEDY_THRESH = 15
-# Allow greedy algorithm for the first few squares.
-GREEDY_CONTROL = True
-
-MAX_CHILDREN = 2 * 4 * 16
-
-DIR_KEY = {"u": 0, "d": 1, "l": 2, "r":3}
-DIR_VAL = {v: k for k, v in DIR_KEY.iteritems()}
-
-SIM = TFE()
-
-class Node:
-    option = 0
-    parent = None
-    total_games = 0
-    total_wins = 0
-    UCB = 0
-    grid = None
-    children = np.array([])
-
-    # Array to store what options have already been done.
-    # Should be at most 128
-    children_options = np.array([])
-
-    # Each node must contain a move and new tile appearance option.
-    # can also be done to save a snapshot of the grid, but for now, no need.
-    def __init__(self, parent, option, grid):
-        self.option = option
-        self.parent = parent
-        # Generate options based off availability
-        self.children_options = self.genOpt(grid)
-        self.grid = np.copy(grid)
-    
-    # Returns a grid
-    def optToGrid(self, opt):
-        val = int(opt / (4 * 16))
-        opt -= val * 4 * 16
-        loc = opt / 4
-        dir = DIR_VAL[opt % 4]
-            
-        SIM.grid = np.copy(self.grid)
-        SIM.moveGrid(dir)
-        res = SIM.grid
-        if val == 0:
-            res[loc / 4, loc % 4] = 2
-        else:
-            res[loc / 4, loc % 4] = 4
-    
-        return res
-
-
-    # given current grid, generate some options
-    def genOpt(self, grid):
-        # Can save if necessary
-        SIM.grid = np.copy(grid)
-        after_grid = SIM.availDir()
-
-        # Move
-        dir = [DIR_KEY[k] for k, v in after_grid.iteritems()]
-        # Then generate
-        res = []
-        for k, v in after_grid.iteritems():
-            v_f = v.flatten("K")
-            # Multiply to have unique ID for each range.
-            # Think of it as an unique array index for each config.
-            res += [DIR_KEY[k] + 4 * (y[0] + 16 * 0) for y in np.argwhere(v_f == 0).tolist()]
-            res += [DIR_KEY[k] + 4 * (y[0] + 16 * 1) for y in np.argwhere(v_f == 0).tolist()]
-
-        return np.array(res)
-        
-    # Create a new child for the node, if possible.
-    # Does a check to see if possible.
-    # Returns false if cannot create child.
-    # Mutates tfe
-    def create_child(self):
-        if self.children_options.size == 0:
-            return False
-
-        arg = rnd.randint(0, self.children_options.size - 1)
-        opt = self.children_options[arg]
-
-        # Delete the option.
-        self.children_options = np.delete(self.children_options, arg)
-        result = Node(self, opt, self.optToGrid(opt))
-        self.children = np.append(self.children, result)
-        return result
-
-    def hasUCB(self):
-        return self.total_games != 0
-
-    def UCB(self):
-        return self.UCB
-
 
 class MCT:
     # Greedy algorithm for faster approach
@@ -118,52 +26,45 @@ class MCT:
     # Run the AI
     # Returns best direction to select next.
     def run(self, tfe, sec, noNone = False):
+        # Greedy algorithm control flow
         if GREEDY_CONTROL and np.argwhere(tfe.grid.flatten() == 0).size > GREEDY_THRESH:
             return self.greedy(tfe)
-    
+        
+        
+
+        # Root node setting up.
         root = Node(None, -1, tfe.grid)
         print "\nBRANCHES: " + str(root.children_options.size)
         
-        trav = []
         t_end = time.time() + sec
         # Monte Carlo loop
         while time.time() <= t_end or noNone:
-            cur_node = root
-            SIM.grid = cur_node.grid
-            # Keep going until leaf node.
-            while (not SIM.isLose()) and (not SIM.isWin()):
-                # check time again in inner loop
-                if time.time() > t_end and (not noNone):
+            trav = []
+            # gurnatees us a leaf node unless we run out of time.
+            cur_node = self.forwardPropagate(root,trav, t_end, noNone)
+
+            # End if time is ended. However if noNone, we need to gurantee that
+            # at least first layer has all options available.
+            # So we either exited because time and all children solved.
+            if time.time() > t_end and not noNone:
                     break
 
-                res = cur_node.create_child()
-                if res == False:
-                    noNone = False
-                    # save snapshot
-                    trav.append(cur_node)
-                    # Go down the highest ucb.
-                    cur_node = self.getHighestUCB(cur_node.children)
-                else:
-                    # otherwise, we have created a child
-                    trav.append(res)
-                    cur_node = res
-                SIM.grid = cur_node.grid
-                #print cur_node.grid
-            
-            # End if time is ended
-            if time.time() > t_end and (not noNone):
-                break
-
-            # Save the last node / leaf node
-            trav.append(cur_node)
-
-            if tfe.isWin():
+            # Check if leaf is win or lose state. Propagate accordingly.
+            SIM.grid = cur_node.grid
+            if SIM.isWin():
                 self.backPropagate(trav, 1)
             else:
                 self.backPropagate(trav, 0)
+            
+            # check if all children for root, if so, we can set noNone to false.
+            if root.children_options.size == 0:
+                noNone = False
+
         # Select a result
         # Check makesure we have all children
+        # Otherwise not enough time for first level
         if root.children_options.size != 0:
+            print "NO TIME"
             return None
 
         highest = self.getHighestUCB(root.children)
@@ -171,6 +72,41 @@ class MCT:
         z = int(opt) / (4 *  16)
         opt -= z * 4 * 16
         return DIR_VAL[opt % 4]
+
+    def forwardPropagate(self, root, trav, t_end, noNone = False):
+        cur_node = root
+
+        # No need to check if leaf node here. The inner loop will take care of that.
+        # check time again in inner loop
+        # either error because node with no children even though no win
+        # or reached leaf and have lost/won. Either way, leave loop.
+        while time.time() <= t_end or (noNone):
+
+            # Try to create a child if possible, if not, two possibilities.
+            res = cur_node.create_child()
+
+            # We create all the children, go down one level.
+            # OR we have no children.
+            if res == False:
+                # check if leaf
+                if cur_node.children.size == 0 and cur_node.children_options.size == 0:
+                    # Force noNone to false so we can escape loop, since we reached leaf.
+                    noNone = False
+                    break
+
+                # Note a leaf node, let us go down via UCB
+                # save snapshot
+                trav.append(cur_node)
+                # Go down the highest ucb.
+                cur_node = self.getHighestUCB(cur_node.children)
+            else:
+                # otherwise, we have created a child
+                trav.append(res)
+                cur_node = res
+
+        # Save last node
+        trav.append(cur_node)
+        return cur_node
 
 
     def backPropagate(self, trav, win):
