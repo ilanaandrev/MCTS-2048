@@ -1,7 +1,7 @@
 # Monte Carlo Tree Search for 2048
 ## General Description
 This is a MCTS AI implementation in order to play 2048.
-Includes a basic 2048 logic. Implementations of MCTS and 2048 Game are not optimal, this is a proof of concept project that is not funded. This was done as a Winter Break 2017 project as a MS-CSE students at UCSD with emphasis in AI/ML (more info about author on bottom).
+Includes a basic 2048 logic. Implementations of MCTS and 2048 Game are not optimal, this is a proof of concept project that is not funded. This was done as a Winter Break 2017 project as a MS-CSE student at UCSD with emphasis in AI/ML (more info about author on bottom).
 
 2048 has been shown to be NP-HARD.
 
@@ -33,9 +33,6 @@ ASAP approach (one branch sample per children of root) takes us in the range of 
 ### Future Research
 Checkered patterns are bad in 2048. Checkered patterns mean more directional movement is required to break up the parity. A future heuristic check on these parity can be done. The parity's resolution should be proportional to the space allowed. The theory is the allow detection of these parity's will allow MCTS to find the optimal resolution.
 
-## Requirements
-Python 2.x and Numpy
-
 ## Python Files
 | File Name | Description |
 | ---------------- |:-------------:|
@@ -61,14 +58,11 @@ Folders outline type of heuristic approach.
 See Heuristic Methodologies for categories of folder.
 HEAVY folders mean that the corners are weighted more steeply and the leaf nodes are weighted more.
 
-## Todo
-* Fix Values in Corner Heuristic to remove overflow on large times.
-
 ## Common Questions
 ### Why Python?
 This project was a proof of concept. If the results are shown to work on Python then we know that a well implemented low level system can perform 10x - 100x faster. 
 
-### Will there be a C++ or faster eversion?
+### Will there be a C++ or faster version?
 Only if there are enough people who want it. Also depending on my schedule/priorities.
 
 ### Can I Use This Idea for a Better Version or Iteration?
