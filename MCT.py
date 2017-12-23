@@ -26,11 +26,13 @@ class MCT:
     # Run the AI
     # Returns best direction to select next.
     def run(self, tfe, sec, noNone = False):
+        global GREEDY_CONTROL
         # Greedy algorithm control flow
         if GREEDY_CONTROL and np.argwhere(tfe.grid.flatten() == 0).size > GREEDY_THRESH:
             return self.greedy(tfe)
-        
-        
+
+        # Check if we should run greedy only once.
+        GREEDY_CONTROL = GREEDY_CONTROL & ~GREEDY_INIT_ONLY 
 
         # Root node setting up.
         root = Node(None, -1, tfe.grid)
@@ -111,16 +113,35 @@ class MCT:
 
     def backPropagate(self, trav, win):
         # Backpropagate
+        v_accum = 0
         while len(trav) != 0:
             n = trav.pop()
             n.total_games += 1
             n.total_wins += win
+
+            # accum the heuristics.
+            v_accum += n.val
+
             # calculate ucb
             if n.parent != None:
-                n.UCB  = (n.total_wins /n.total_games) + 1.6 * math.sqrt(math.log(n.parent.total_games + 1) / n.total_games) 
+                # Basic UCB
+                n.UCB  = 1.6 * math.sqrt(math.log(n.parent.total_games + 1) / n.total_games) 
+
+                # Heuristics update. Note the accum
+                if VAL_H:
+                    n.val = v_accum
+                    n.UCB += v_accum
+                else:
+                    n.UCB += (n.total_wins /n.total_games)
+                
                 # update siblings as well
-                for s in n.parent.children:
-                    s.UCB = (s.total_wins /s.total_games) + 1.6 * math.sqrt(math.log(s.parent.total_games + 1) / s.total_games)
+                if VAL_H:
+                    # v is not updated in siblings, only parent totals.
+                    for s in n.parent.children:
+                        s.UCB = s.val + 1.6 * math.sqrt(math.log(s.parent.total_games + 1) / s.total_games)
+                else:
+                    for s in n.parent.children:
+                        s.UCB = (s.total_wins /s.total_games) + 1.6 * math.sqrt(math.log(s.parent.total_games + 1) / s.total_games)
 
 
     def getHighestUCB(self, children):
