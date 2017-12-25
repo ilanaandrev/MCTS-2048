@@ -6,15 +6,21 @@
 *******************************************/
 
 #include <iostream>
+#include <ctime>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
 #include "TFE.hpp"
 
 int main() {
+    // Init seed with nanosecond time.
+    struct timespec ts;
+    clock_gettime(CLOCK_MONOTONIC, &ts);
+    std::srand((time_t)ts.tv_nsec);
+
     TFE tfe;
     tfe.putNew();
     tfe.putNew();
-    tfe.display();
-    tfe.move('l');
-    std::cout << "------------" << std::endl;
     tfe.display();
 }

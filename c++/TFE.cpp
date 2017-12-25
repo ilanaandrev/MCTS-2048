@@ -20,18 +20,12 @@ bool TFE::putNew() {
     auto cells = get_cells_where(grid, 0);
     if(cells.size() == 0)
         return false;
-    
-    // TODO: Remove creation everytime?
-    std::random_device rd;
-    std::mt19937 rng(rd());
-    std::uniform_int_distribution<int> uni(0, cells.size() - 1);
-    std::uniform_int_distribution<int> uniT(1, 100);
 
-    int randNumber = uni(rng);
+    int randNumber = rand() % (cells.size() - 1);
     uint loc = cells[randNumber];
 
     // Set the value
-    randNumber = uniT(rng);
+    randNumber = (rand() % 100) + 1;
     if(randNumber > 10)
         grid[loc] = 2;
     else
