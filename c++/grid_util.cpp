@@ -50,16 +50,16 @@ void move_cell(uint *A, int x, int y, char dir) {
     int dy = y + yval;
     for(;;) {
         // Edit condition switch.
-        if(dir == 'l') { if(x >= 0) break ;}
-        else if(dir == 'r') { if(x < 4) break ;}
-        else if(dir == 'd') { if(y < 4) break ;}
-        else { if(y >= 0) break ;}
+        if(dir == 'l') { if(dx < 0) break;}
+        else if(dir == 'r') { if(dx >= 4) break;}
+        else if(dir == 'd') { if(dy >= 4) break;}
+        else { if(dy < 0) break ;}
 
        if(AC(A, dx, dy) == 0) {
            dx += xval; dy += yval;
        }
        else if(AC(A, dx, dy) == AC(A, x, y)) {
-            AC(A, dx, dy) *= 2;
+            AC(A,dx, dy) *= 2;
             AC(A, x, y) = 0;
             return;
        }
@@ -77,9 +77,10 @@ void move_cell(uint *A, int x, int y, char dir) {
 // But it works for now...
 void move_grid(uint *A, char dir) {
     if(dir == 'l') {
-        int dy = 0;
+        int x = 0, y = 0;
+        int dy = y;
         while(dy < 4) {
-            int dx = 0;
+            int dx = x;
             while(dx < 4) {
                 move_cell(A, dx, dy, dir);
                 ++dx;
@@ -88,9 +89,10 @@ void move_grid(uint *A, char dir) {
         }
     }
     else if(dir == 'r') {
-        int dy = 3;
+        int x = 3, y = 3;
+        int dy = y;
         while(dy >= 0) {
-            int dx = 3;
+            int dx = x;
             while(dx >= 0) {
                 move_cell(A, dx, dy, dir);
                 --dx;
@@ -99,20 +101,21 @@ void move_grid(uint *A, char dir) {
         }
     }
     else if(dir == 'd') {
-        int dx = 3;
+        int x = 3, y = 3;
+        int dx = x;
         while(dx >= 0) {
-            int dy = 3;
+            int dy = y;
             while(dy >= 0) {
-                move_cell(A, dx, dy, dir);
                 --dy;
             }
             --dx;
         }
     }
     else {
-        int dx = 0;
+        int x = 0, y = 0;
+        int dx = x;
         while(dx < 4) {
-            int dy = 0;
+            int dy = y;
             while(dy < 4) {
                 move_cell(A, dx, dy, dir);
                 ++dy;
@@ -122,7 +125,7 @@ void move_grid(uint *A, char dir) {
     }
 }
 
-// Check if grids are equal
+// Check if grids are equal 
 bool is_equal(uint *A, uint *B) {
     for(uint x = 0; x < GRID_SIZE; ++x)
         if(A[x] != B[x])
@@ -145,9 +148,10 @@ uint max_grid(uint *grid) {
  * Print the grid
  */
 void print_grid(uint *A) {
-    for(uint x = 0; x < GRID_SIZE; ++x) {
-        std::cout << A[x] << " ";
-        if((x+1) % GRID_WIDTH == 0)
-            std::cout << std::endl;
+    for(uint y = 0; y < GRID_WIDTH; ++y) {
+        for(uint x = 0; x < GRID_WIDTH; ++x) {
+            std::cout << AC(A, x, y) << " ";
+        }
+        std::cout << std::endl;
     }
 }

@@ -4,3 +4,4 @@
 *.dll
 *.lib
 *.o
+.vscode

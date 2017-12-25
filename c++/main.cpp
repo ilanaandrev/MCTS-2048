@@ -14,7 +14,7 @@ int main() {
     tfe.putNew();
     tfe.putNew();
     tfe.display();
-    tfe.move('r');
+    tfe.move('l');
     std::cout << "------------" << std::endl;
     tfe.display();
 }
