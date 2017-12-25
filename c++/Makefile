@@ -4,7 +4,7 @@ CC=g++
 CXXFLAGS=-I$(H_FOLD) -Wall -std=c++11 -ggdb
 CCFLAGS=-Wall
 
-OBJECTS=main.o
+OBJECTS=main.o TFE.o grid_util.o config.o
 
 main: $(OBJECTS)
 

@@ -7,6 +7,14 @@
 
 #include <iostream>
 
+#include "TFE.hpp"
+
 int main() {
-    TFE tfe();
+    TFE tfe;
+    tfe.putNew();
+    tfe.putNew();
+    tfe.display();
+    tfe.move('r');
+    std::cout << "------------" << std::endl;
+    tfe.display();
 }

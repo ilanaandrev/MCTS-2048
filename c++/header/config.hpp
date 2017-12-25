@@ -7,8 +7,15 @@
  * Website: ProgrammingIncluded.github.io
 *******************************************/
 
+#include "types_macros.hpp"
+
 // Grid is always square.
-static unsigned int GRID_WIDTH = 4;
+extern uint GRID_WIDTH;
+extern uint GRID_SIZE;
 
 // Win requirement
-static unsigned int WIN_REQ = 2048;
+extern uint WIN_REQ;
+
+// Directions
+extern char DIR[4];
+extern uint DIR_SIZE;
