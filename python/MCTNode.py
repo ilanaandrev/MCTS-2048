@@ -80,10 +80,25 @@ class Node:
         
     # Generate heuristic value from given grid
     def valFromGrid(self, grid):
+        '''
+        s = 0
+        # Try to take monotonically increasing
+        res = np.diff(grid.flatten("K"))
+        res = np.clip(res, 0, 1)
+        s += sum(res)
+
+        # check rows
+        res = np.diff(np.rot90(grid,1).flatten("K"))
+        res = np.clip(res, 0, 1)
+        s += sum(res) * 4
+        return [s]
+        '''
         result = []
+        
         for x in range(0, V_DIR):
-            v = np.sum(np.multiply(grid, FILTERS[x]).flatten("K"))
+            v = math.log(np.sum(np.multiply(grid, FILTERS[x]).flatten("K")))
             result.append(v)
+        
         return result
         
         

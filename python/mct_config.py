@@ -7,20 +7,28 @@
 
 from TFE import *
 import numpy as np
+import sys
 
+# System arguments.
+if len(sys.argv) >= 2:
+    MONTE_CARLO_RUN = int(sys.argv[1])
+else:
+    MONTE_CARLO_RUN = 0
 
 # Number of 0's minimum before starting non-greedy approach
-GREEDY_THRESH = 16
+if len(sys.argv) >= 3:
+    GREEDY_THRESH = int(sys.argv[2])
+else:
+    GREEDY_THRESH = 16
+
 # Allow greedy algorithm for the first few squares.
 GREEDY_CONTROL = True
 GREEDY_INIT_ONLY = True
 
-MONTE_CARLO_RUN = 90
-
 # TODO: Value Heuristic
 VAL_H = True
 # Directions of corners to check, across.
-V_DIR = 4
+V_DIR = 2
 
 # Branch Weight
 LEAF_WIN_WEIGHT = 7000

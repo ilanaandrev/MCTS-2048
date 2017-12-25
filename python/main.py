@@ -18,8 +18,8 @@ def main():
     # generate a new
     tfe.putNew()
     tfe.putNew()
-    print "STARTIG BOARD: "
-    # tfe.grid = np.array([0,0,0,0,0,0,2,0,64,4,0,8,4,2,2,2]).reshape((4,4))
+    print "STARTING BOARD: "
+    # tfe.grid = np.array([0, 0, 2, 16, 0 ,0 , 64, 4, 0, 8, 16, 256, 2,4, 2, 16]).reshape((4,4))
     print tfe.grid
     print ""
 
@@ -28,18 +28,9 @@ def main():
 
         start = time.clock() 
 
-        old_grid = np.copy(tfe.grid)
-
         print "*********************"
         act = mct.run(tfe, MONTE_CARLO_RUN, True)
 
-        if not np.array_equal(tfe.grid, old_grid):
-            print "NOT EQUAL"
-            print old_grid
-            print tfe.grid
-            exit()
-
-            
         print "AI SELECT ACTION: " + act
         print "*********************"
         print "BEFORE: "

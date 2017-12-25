@@ -36,7 +36,7 @@ class MCT:
 
         # Root node setting up.
         root = Node(None, -1, tfe.grid)
-        print "\nBRANCHES: " + str(root.children_options.size)
+        # print "\nBRANCHES: " + str(root.children_options.size)
         
         t_end = time.time() + sec
         # Monte Carlo loop
@@ -82,7 +82,7 @@ class MCT:
         # check time again in inner loop
         # either error because node with no children even though no win
         # or reached leaf and have lost/won. Either way, leave loop.
-        while time.time() <= t_end or (noNone):
+        while (time.time() <= t_end or (noNone)) and not SIM.isWin():
 
             # Try to create a child if possible, if not, two possibilities.
             res = cur_node.create_child()
@@ -105,6 +105,7 @@ class MCT:
                 # otherwise, we have created a child
                 trav.append(res)
                 cur_node = res
+            SIM.grid = cur_node.grid
 
         # Save last node
         trav.append(cur_node)
