@@ -12,6 +12,7 @@
 #include <time.h>
 
 #include "TFE.hpp"
+#include "MCT.hpp"
 
 int main() {
     // Init seed with nanosecond time.
@@ -23,4 +24,8 @@ int main() {
     tfe.putNew();
     tfe.putNew();
     tfe.display();
+    std::cout << "-----------" << std::endl;
+
+    MCT mct(tfe);
+
 }

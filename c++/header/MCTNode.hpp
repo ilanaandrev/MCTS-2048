@@ -9,20 +9,22 @@
 #include <random>
 
 #include "types_macros.hpp"
+#include "grid_util.hpp"
 
 class MCTNode {
-    uint option;
-    MCTNode *parent;
-    uint total_games;
-    uint total_wins;
-    float UCB;
-    long long int val;
-    uint *grid;
-
-    std::vector<uint> children;
-    std::vector<uint> children_options;
-
     public:
+        uint option;
+        MCTNode *parent;
+
+        std::vector<MCTNode *> children;
+        std::vector<uint> children_options;
+
+        uint total_games;
+        uint total_wins;
+        double UCB;
+        uint *grid;
+        long long int val;
+
         // NOTE: Grid is not copied.
         MCTNode(MCTNode *parent, uint option, uint *grid);
         

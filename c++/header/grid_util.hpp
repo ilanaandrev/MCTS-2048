@@ -26,3 +26,14 @@ bool is_equal(uint *A, uint *B);
 uint max_grid(uint *grid);
 void print_grid(uint *A);
 std::vector<std::pair<char, uint *>> avail_dir(uint *grid);
+void rotate_grid_90(uint *A);
+uint *diff_grid(uint *A);
+
+/* Matrix Specific Functions */
+// These functions require specific size of grid since not assumed.
+
+// Returns a new array of dim(GRID_WIDTH - 1, GRID_WIDTH)
+// Clip the grid.
+void clip(uint *A, uint min, uint max, uint size);
+// Returns a summed number
+long long int sum(uint *A, uint size);

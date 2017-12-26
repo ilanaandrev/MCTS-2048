@@ -27,6 +27,8 @@ class TFE {
         TFE();
         ~TFE();
 
+        uint *getGrid() { return grid; }
+
         // Display the grid.
         void display();
 

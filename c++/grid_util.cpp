@@ -192,3 +192,45 @@ std::vector<std::pair<char, uint *>> avail_dir(uint *grid) {
 
     return res;
 }
+
+void rotate_grid_90(uint *A) {
+    uint n = GRID_WIDTH;
+    for(uint i = 0; i < n/2; ++i) {
+        for(uint j = 0; j < (n + 1)/2; ++j) {
+            uint temp = AC(A, i, j);
+            AC(A, i, j) = AC(A, n - 1 - j, i);
+            AC(A, n - 1 - j, i) = AC(A, n - 1 - i, n - 1 - j);
+            AC(A, n - 1 - i, n - 1 - j) = AC(A, j, n - 1 - i);
+            AC(A, j, n - 1 - i) = temp;
+        }
+    }
+}
+
+uint *diff_grid(uint *A) {
+    uint *res = new uint[(GRID_WIDTH) * (GRID_WIDTH - 1)];
+
+    for(uint y = 0; y < GRID_WIDTH; ++y){
+        for(uint x = 0; x < GRID_WIDTH - 1; ++x) {
+            AC(res, x, y) = AC(A, x, y) - AC(A, x + 1, y);
+        }
+    }
+
+    return res;
+}
+
+void clip(uint *A, uint min, uint max, uint size) {
+    for(uint x = 0; x < size; ++x) {
+        if(A[x] < min)
+            A[x] = min;
+        else if(A[x] > max)
+            A[x] = max;
+    }
+}
+
+long long int sum(uint *A, uint size) {
+    long long int res = 0;
+    for(uint x = 0; x < size; ++x)
+        res += (long long int) A[x];
+
+    return res;
+}

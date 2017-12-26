@@ -84,7 +84,6 @@ class Node:
         
     # Generate heuristic value from given grid
     def valFromGrid(self, grid):
-        '''
         s = 0
         # Try to take monotonically increasing
         res = np.diff(grid.flatten("K"))
@@ -96,7 +95,6 @@ class Node:
         res = np.clip(res, 0, 1)
         s += sum(res) * 4
         return [s]
-        '''
         result = []
         
         for x in range(0, V_DIR):

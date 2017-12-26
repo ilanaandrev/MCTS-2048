@@ -82,7 +82,11 @@ class MCT:
         # check time again in inner loop
         # either error because node with no children even though no win
         # or reached leaf and have lost/won. Either way, leave loop.
-        while (time.time() <= t_end or (noNone)) and not SIM.isWin():
+        while time.time() <= t_end or (noNone):
+
+            # Check win node.
+            if SIM.isWin():
+                break
 
             # Try to create a child if possible, if not, two possibilities.
             res = cur_node.create_child()
