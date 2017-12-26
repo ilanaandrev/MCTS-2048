@@ -51,4 +51,7 @@ class MCTNode {
          * Generates heuristic values from grid orientation.
          */
         long long int valueFromGrid(uint *A);
+
+        // Make copy private so no one makes instance.
+        MCTNode(const MCTNode &other) = delete;
 };

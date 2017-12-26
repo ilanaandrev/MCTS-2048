@@ -13,7 +13,18 @@ MCT::MCT(TFE &tfe) {
 }
 
 MCT::~MCT() {
+    // Depth first search delete.
+    std::vector<MCTNode*> stack;
+    while(!stack.empty()) {
+        MCTNode *cur = stack.back();
+        stack.pop_back();
+        // Add the children
+        for(auto c : cur->children)
+            stack.push_back(c);
 
+        // Delete the node which deletes the grid.
+        delete cur;
+    }
 }
 
 char MCT::run(float sec, bool noNone) {
@@ -27,7 +38,7 @@ char MCT::run(float sec, bool noNone) {
         timeLeft = sec - (time(0) - start);
         if(timeLeft <= 0 && !noNone)
             break;
-        
+
         if(max_grid(curNode->grid) == WIN_REQ)
             backPropagate(trav, 1);
         else
@@ -58,12 +69,12 @@ MCTNode* MCT::forwardPropagate(MCTNode *root, std::vector<MCTNode*> &trav, float
     time_t start = time(0);
     float sec = timeLeft;
     while(timeLeft > 0 || noNone) {
-
         // Check if win node.
         if(max_grid(curNode->grid) == WIN_REQ)
             break;
-
+    
         MCTNode *res = curNode->createChild();
+
         if(res == nullptr) {
             // Check if Leaf Node
             if(curNode->children.size() == 0 && curNode->children_options.size() == 0) {

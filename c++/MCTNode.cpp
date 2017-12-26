@@ -27,7 +27,7 @@ MCTNode::MCTNode(MCTNode *parent, uint option, uint *grid) {
 }
 
 MCTNode::~MCTNode() {
-    delete grid;
+    delete[] grid;
 }
 
 MCTNode* MCTNode::createChild() {
@@ -35,11 +35,15 @@ MCTNode* MCTNode::createChild() {
         return nullptr;
     
     // Find a random child.
-    int randNumber = rand() % (children_options.size() - 1);
+    int randNumber = 0;
+    if(children_options.size() > 1)
+        randNumber = rand() % (children_options.size() - 1);
+
     uint opt = children_options[randNumber];
 
     // Delete option
-    children_options.erase(children_options.begin() + (randNumber - 1));
+    children_options.erase(children_options.begin() + randNumber);
+
     uint *optGrid = optToGrid(opt);
     MCTNode* resNode = new MCTNode(this, opt, optGrid);
 
@@ -49,16 +53,17 @@ MCTNode* MCTNode::createChild() {
 
 uint * MCTNode::optToGrid(uint opt) {
     uint v = (uint) (opt / (DIR_SIZE * GRID_SIZE));
-    opt -= v * DIR_SIZE * GRID_SIZE;
+    opt -= (v * DIR_SIZE * GRID_SIZE);
     uint loc = (uint) (opt / DIR_SIZE);
-    char d = DIR[opt % 4];
+    char d = DIR[opt % DIR_SIZE];
 
     uint *res = copy_grid(grid);
     move_grid(res, d);
-    if(val == 0)
-        AC(grid, (uint) (loc % 4), (uint) (loc / 4)) = 2;
+
+    if(v == 0)
+        AC(res, (uint) (loc % DIR_SIZE), (uint) (loc / DIR_SIZE)) = 2;
     else
-        AC(grid, (uint) (loc % 4), (uint) (loc / 4)) = 4;
+        AC(res, (uint) (loc % DIR_SIZE), (uint) (loc / DIR_SIZE)) = 4;
     
     return res;
 }
@@ -69,8 +74,8 @@ void MCTNode::genOpt() {
     // Assumes grid is available.
     auto avail = avail_dir(grid);
 
-    for(uint x = 0; x < avail.size(); ++x) {
-        std::vector<uint> where = get_cells_where(grid, 0);
+    for(uint x = 0; x < avail.size(); ++x){
+        std::vector<uint> where = get_cells_where(avail[x].second, 0);
         for(uint i = 0; i < where.size(); ++i) {
             res.push_back(DIR_TO_NUM[avail[x].first] + DIR_SIZE * (where[i]));
             res.push_back(DIR_TO_NUM[avail[x].first] + DIR_SIZE * (where[i] + GRID_SIZE));

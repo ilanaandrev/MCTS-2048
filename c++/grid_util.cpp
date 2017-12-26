@@ -114,6 +114,7 @@ void move_grid(uint *A, char dir) {
         while(dx >= 0) {
             int dy = y;
             while(dy >= 0) {
+                move_cell(A, dx, dy, dir);
                 --dy;
             }
             --dx;

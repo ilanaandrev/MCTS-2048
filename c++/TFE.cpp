@@ -33,7 +33,10 @@ bool TFE::putNew() {
     if(cells.size() == 0)
         return false;
 
-    int randNumber = rand() % (cells.size() - 1);
+    int randNumber = 0;
+    if(cells.size() > 1)
+        randNumber = rand() % (cells.size() - 1);
+
     uint loc = cells[randNumber];
 
     // Set the value
