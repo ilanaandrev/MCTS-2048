@@ -7,8 +7,9 @@
  * Website: ProgrammingIncluded.github.io
 *******************************************/
 
-MCT::MCT(TFE tfe) {
-    root = new MCTNode(nullptr, -1, tfe.getGrid());
+MCT::MCT(TFE &tfe) {
+    // Need to make a copy for grid.
+    root = new MCTNode(nullptr, -1, copy_grid(tfe.getGrid()));
 }
 
 MCT::~MCT() {
@@ -70,6 +71,9 @@ MCTNode* MCT::forwardPropagate(MCTNode *root, std::vector<MCTNode*> &trav, float
                 noNone = false;
                 break;
             }
+
+            trav.push_back(curNode);
+            curNode = getHighestUCB(curNode->children);
         }
         else {
             trav.push_back(res);

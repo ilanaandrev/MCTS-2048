@@ -3,9 +3,9 @@
 /**
  * Returns a copy of the grid.
  */
-uint * copy_grid(uint *A){
+uint* copy_grid(uint *A){
     uint *ret = new uint[GRID_SIZE];
-    std::memcpy(ret, A, GRID_SIZE);
+    std::memcpy(ret, A, sizeof(uint) * GRID_SIZE);
     return ret;
 }
 
@@ -206,12 +206,12 @@ void rotate_grid_90(uint *A) {
     }
 }
 
-uint *diff_grid(uint *A) {
+uint* diff_grid(uint *A) {
     uint *res = new uint[(GRID_WIDTH) * (GRID_WIDTH - 1)];
 
     for(uint y = 0; y < GRID_WIDTH; ++y){
         for(uint x = 0; x < GRID_WIDTH - 1; ++x) {
-            AC(res, x, y) = AC(A, x, y) - AC(A, x + 1, y);
+            res[x + y * (GRID_WIDTH - 1)] = AC(A, x + 1, y) - AC(A, x, y);
         }
     }
 

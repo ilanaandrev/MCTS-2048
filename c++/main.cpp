@@ -27,5 +27,9 @@ int main() {
     std::cout << "-----------" << std::endl;
 
     MCT mct(tfe);
-
+    char act = mct.run(0, true);
+    std::cout << "AI Choose: " << act << std::endl;
+    if(act != 'E')
+        tfe.move(act);
+    tfe.display();
 }

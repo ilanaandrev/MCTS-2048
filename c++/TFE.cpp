@@ -16,6 +16,10 @@ TFE::~TFE() {
     delete[] grid;
 }
 
+TFE::TFE(const TFE &other) {
+    this->grid = copy_grid(other.grid);
+}
+
 void TFE::display() {
     print_grid(grid);
 }
