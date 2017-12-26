@@ -1,5 +1,13 @@
 #include "TFE.hpp"
 
+/******************************************
+ * Project: MCT-TFE
+ * File: TFE.cpp
+ * By: ProgrammingIncluded
+ * Website: ProgrammingIncluded.github.io
+*******************************************/
+
+
 TFE::TFE() {
     grid = new uint[GRID_SIZE]();
 }
@@ -35,34 +43,7 @@ bool TFE::putNew() {
 }
 
 std::vector<std::pair<char, uint *>> TFE::availDir() {
-    std::vector<std::pair<char, uint *>> res;
-    // If empty, we can take any direction
-    if(max_grid(grid) == 0) {
-        // Call memcpy only once.
-        for(uint x = 0; x < DIR_SIZE; ++x) {
-            uint *val = new uint[GRID_SIZE];
-            std::memcpy(val, grid, GRID_SIZE);
-            res.push_back(std::pair<char, uint *>(DIR[x], val));
-        }
-        return res;
-    }
-
-    // Try moving our values.
-    for(uint x = 0; x < DIR_SIZE; ++x) {
-        uint *val = new uint[GRID_SIZE];
-        std::memcpy(val, grid, GRID_SIZE);
-        move_grid(val, DIR[x]);
-
-        // check if same
-        if(is_equal(val, grid)){
-            delete[] val;
-            continue;
-        }
-        // Not the same, add it to result.
-        res.push_back(std::pair<char, uint *>(DIR[x], val));
-    }
-
-    return res;
+    return avail_dir(grid);
 }
 
 bool TFE::isWin() {

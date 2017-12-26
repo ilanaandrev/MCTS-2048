@@ -9,7 +9,6 @@
 
 #include <vector>
 #include <utility>
-#include <cstring>
 #include <cstdlib>
 #include <random>
 
@@ -17,6 +16,9 @@
 #include "grid_util.hpp"
 #include "types_macros.hpp"
 
+// Note, the line between TFE and grid_util
+// is slightly more blurry. Can be done
+// more clearly. Add as TODO?
 class TFE {
     // Save grid as 1d array.
     uint *grid;

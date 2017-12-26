@@ -148,7 +148,7 @@ class MCT:
     def getHighestUCB(self, children):
         # Check UCB, select highest UCB
         sel = None
-        sel_val = -1
+        sel_val = float("-inf")
         for child in children:
             if sel_val < child.UCB:
                 sel = child

@@ -7,3 +7,10 @@
  * Website: ProgrammingIncluded.github.io
 *******************************************/
 
+#include "MCTNode.hpp"
+
+class MCT {
+
+    public:
+        MCT();
+};

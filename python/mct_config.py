@@ -31,7 +31,7 @@ VAL_H = True
 V_DIR = 2
 
 # Branch Weight
-LEAF_WIN_WEIGHT = 7000
+LEAF_WIN_WEIGHT = 1000
 
 # Max children for each turn. 4 directions, 16 available, 2 possible gen values.
 MAX_CHILDREN = 2 * 4 * 16

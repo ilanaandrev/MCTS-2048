@@ -1,5 +1,13 @@
 #include "grid_util.hpp"
 
+/**
+ * Returns a copy of the grid.
+ */
+uint * copy_grid(uint *A){
+    uint *ret = new uint[GRID_SIZE];
+    std::memcpy(ret, A, GRID_SIZE);
+    return ret;
+}
 
 /**
  * Basic single element multiplication.
@@ -154,4 +162,33 @@ void print_grid(uint *A) {
         }
         std::cout << std::endl;
     }
+}
+
+std::vector<std::pair<char, uint *>> avail_dir(uint *grid) {
+    std::vector<std::pair<char, uint *>> res;
+    // If empty, we can take any direction
+    if(max_grid(grid) == 0) {
+        // Call memcpy only once.
+        for(uint x = 0; x < DIR_SIZE; ++x) {
+            uint *val = copy_grid(grid);
+            res.push_back(std::pair<char, uint *>(DIR[x], val));
+        }
+        return res;
+    }
+
+    // Try moving our values.
+    for(uint x = 0; x < DIR_SIZE; ++x) {
+        uint *val = copy_grid(grid);
+        move_grid(val, DIR[x]);
+
+        // check if same
+        if(is_equal(val, grid)){
+            delete[] val;
+            continue;
+        }
+        // Not the same, add it to result.
+        res.push_back(std::pair<char, uint *>(DIR[x], val));
+    }
+
+    return res;
 }

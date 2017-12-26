@@ -31,8 +31,19 @@ class Node:
         self.option = option
         self.parent = parent
         # Generate options based off availability
-        self.children_options = self.genOpt(grid)
         self.grid = np.copy(grid)
+        self.children_options = self.genOpt(grid)
+
+        # If res empty and heuristics is on, try to check what type of leaf.
+        SIM.grid = grid
+        if VAL_H:
+            if self.children_options.size != 0:
+                self.val = np.max(self.valFromGrid(self.grid))
+            elif SIM.isWin():
+                self.val = LEAF_WIN_WEIGHT
+            else:
+                self.val = -LEAF_WIN_WEIGHT
+
     
     # Returns a grid
     def optToGrid(self, opt):
@@ -68,13 +79,6 @@ class Node:
             # Think of it as an unique array index for each config.
             res += [DIR_KEY[k] + 4 * (y[0] + 16 * 0) for y in np.argwhere(v_f == 0).tolist()]
             res += [DIR_KEY[k] + 4 * (y[0] + 16 * 1) for y in np.argwhere(v_f == 0).tolist()]
-
-        # If res empty and heuristics is on, try to check what type of leaf.
-        if VAL_H:
-            if SIM.isWin():
-                self.val = LEAF_WIN_WEIGHT
-            else:
-                self.val = -LEAF_WIN_WEIGHT
 
         return np.array(res)
         
@@ -118,12 +122,6 @@ class Node:
         self.children_options = np.delete(self.children_options, arg)
         grid = self.optToGrid(opt)
         result = Node(self, opt, grid)
-
-        # If heuristics, we set the value.
-        # global flag done to save time. Win lose weight is set during
-        # options setting.
-        if VAL_H:
-            result.val = np.max(self.valFromGrid(grid))
 
         self.children = np.append(self.children, result)
         return result
