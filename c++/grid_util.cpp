@@ -159,7 +159,9 @@ uint max_grid(uint *grid) {
 void print_grid(uint *A) {
     for(uint y = 0; y < GRID_WIDTH; ++y) {
         for(uint x = 0; x < GRID_WIDTH; ++x) {
-            std::cout << AC(A, x, y) << " ";
+            std::cout << std::setw(5);
+            std::cout << AC(A, x, y);
+            std::cout << std::setw(5);
         }
         std::cout << std::endl;
     }

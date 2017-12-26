@@ -11,6 +11,8 @@
 
 #include "types_macros.hpp"
 
+extern uint MONTE_CARLO;
+
 // Grid is always square.
 extern const uint GRID_WIDTH;
 extern const uint GRID_SIZE;
