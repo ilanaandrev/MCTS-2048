@@ -12,10 +12,9 @@ Includes a basic 2048 logic. Implementations of MCTS and 2048 Game are not optim
 
 2. Monotonically Weighted
 
-    Weight by increase monotonic rows and columns. Removes 
+   Give more reward for orientations with increasing columns and rows. Winning boards are given high positive weights and negative of that for losing nodes.
 
 ## Discoveries
-
 ### Naive MCTS
 In theory this is enough to solve the problem. C++ version can go around 512 with 1 second thinking time.
 
@@ -27,7 +26,7 @@ ASAP approach (one branch sample per children of root) takes us in the range of 
 ### Future Research
 Checkered patterns are bad in 2048. Checkered patterns mean more directional movement is required to break up the parity. A future heuristic check on these parity can be done. The parity's resolution should be proportional to the space allowed. The theory is the allow detection of these parity's will allow MCTS to find the optimal resolution.
 
-## Python Files
+## CPP Files
 | File Name | Description |
 | ---------------- |:-------------:|
 | main.cpp | Main file to start an instance of MCTS and 2048. |
@@ -36,11 +35,6 @@ Checkered patterns are bad in 2048. Checkered patterns mean more directional mov
 | TFE.cpp | File to hold 2048 program. |
 | grid_util.cpp | File to hold grid manipulation helper functions. |
 | config.cpp | Config files. |
-
-## Heuristic Output
-Folders outline type of heuristic approach. 
-See Heuristic Methodologies for categories of folder.
-HEAVY folders mean that the corners are weighted more steeply and the leaf nodes are weighted more.
 
 ## Common Questions
 ### Can I Use This Idea for a Better Version or Iteration?
