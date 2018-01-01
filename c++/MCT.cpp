@@ -43,7 +43,7 @@ char MCT::run(float sec, bool noNone) {
             backPropagate(trav, 1);
         else
             backPropagate(trav, 0);
-        
+
         // Check if all children for root. If so, we can toggle noNone.
         if(root->children_options.size() == 0)
             noNone = false;
@@ -120,11 +120,11 @@ void MCT::backPropagate(std::vector<MCTNode*> &trav, long long int win) {
             // Update heuristics
             if(VAL_H) {
                 n->val = accum;
-                n->UCB += accum;
-                
+                n->UCB += ((double) accum) / 1000000;
+    
                 // Update siblings
                 for(auto s : n->parent->children)
-                    s->UCB = s->val + UCB_COEFF * sqrt(log(s->parent->total_games + 1) / s->total_games);
+                    s->UCB = (((double) s->val) / 1000000) + UCB_COEFF * sqrt(log(s->parent->total_games + 1) / s->total_games);
             }
             else {
                 n->UCB += (n->total_wins/n->total_games);
@@ -138,10 +138,10 @@ void MCT::backPropagate(std::vector<MCTNode*> &trav, long long int win) {
 
 MCTNode* MCT::getHighestUCB(std::vector<MCTNode*> &children) {
     MCTNode *res = nullptr;
-    double selVal = -DBL_MAX;
+    double selVal = LLONG_MIN;
 
     for(auto c : children) {
-        if(selVal < c->UCB) {
+        if(selVal <= c->UCB) {
             res = c;
             selVal = c->UCB;
         }

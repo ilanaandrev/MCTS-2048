@@ -87,9 +87,9 @@ void move_grid(uint *A, char dir) {
     if(dir == 'l') {
         int x = 0, y = 0;
         int dy = y;
-        while(dy < 4) {
+        while(dy < (int) GRID_WIDTH) {
             int dx = x;
-            while(dx < 4) {
+            while(dx < (int) GRID_WIDTH) {
                 move_cell(A, dx, dy, dir);
                 ++dx;
             }
@@ -97,7 +97,7 @@ void move_grid(uint *A, char dir) {
         }
     }
     else if(dir == 'r') {
-        int x = 3, y = 3;
+        int x = (int) GRID_WIDTH - 1, y = (int) GRID_WIDTH - 1;
         int dy = y;
         while(dy >= 0) {
             int dx = x;
@@ -109,7 +109,7 @@ void move_grid(uint *A, char dir) {
         }
     }
     else if(dir == 'd') {
-        int x = 3, y = 3;
+        int x = (int) GRID_WIDTH - 1, y = (int) GRID_WIDTH - 1;
         int dx = x;
         while(dx >= 0) {
             int dy = y;
@@ -123,9 +123,9 @@ void move_grid(uint *A, char dir) {
     else {
         int x = 0, y = 0;
         int dx = x;
-        while(dx < 4) {
+        while(dx < (int) GRID_WIDTH) {
             int dy = y;
-            while(dy < 4) {
+            while(dy < (int) GRID_WIDTH) {
                 move_cell(A, dx, dy, dir);
                 ++dy;
             }
@@ -209,19 +209,19 @@ void rotate_grid_90(uint *A) {
     }
 }
 
-uint* diff_grid(uint *A) {
-    uint *res = new uint[(GRID_WIDTH) * (GRID_WIDTH - 1)];
+long long int* diff_grid(uint *A) {
+    long long int* res = new long long int[(GRID_WIDTH) * (GRID_WIDTH - 1)]();
 
     for(uint y = 0; y < GRID_WIDTH; ++y){
         for(uint x = 0; x < GRID_WIDTH - 1; ++x) {
-            res[x + y * (GRID_WIDTH - 1)] = AC(A, x + 1, y) - AC(A, x, y);
+            res[x + y * (GRID_WIDTH - 1)] = ((long long int) AC(A, x + 1, y)) - ((long long int) AC(A, x, y));
         }
     }
 
     return res;
 }
 
-void clip(uint *A, uint min, uint max, uint size) {
+void clip(long long int* A, long long int min, long long int max, uint size) {
     for(uint x = 0; x < size; ++x) {
         if(A[x] < min)
             A[x] = min;
@@ -230,7 +230,7 @@ void clip(uint *A, uint min, uint max, uint size) {
     }
 }
 
-long long int sum(uint *A, uint size) {
+long long int sum(long long int* A, uint size) {
     long long int res = 0;
     for(uint x = 0; x < size; ++x)
         res += (long long int) A[x];

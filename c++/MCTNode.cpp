@@ -11,6 +11,8 @@ MCTNode::MCTNode(MCTNode *parent, uint option, uint *grid) {
     this->parent = parent;
     this->option = option;
     this->grid = grid;
+    this->total_games = 0;
+    this->total_wins = 0;
 
     // Create children options, must call after grid is set
     genOpt();
@@ -96,7 +98,7 @@ long long int MCTNode::valueFromGrid(uint *A) {
 
     // Size after difference
     uint size = (GRID_WIDTH - 1) * GRID_WIDTH;
-    uint *d = diff_grid(fil);
+    long long int *d = diff_grid(fil);
     clip(d, 0, 1, size);
     res += sum(d, size);
     delete[] d;

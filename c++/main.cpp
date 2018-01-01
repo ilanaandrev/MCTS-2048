@@ -14,6 +14,7 @@
 
 #include "TFE.hpp"
 #include "MCT.hpp"
+#include "grid_util.hpp"
 
 int main() {
     // Init seed with nanosecond time.
@@ -27,8 +28,7 @@ int main() {
     std::cout << "STARTING BOARD: " << std::endl;
     tfe.display();
     std::cout << std::endl;
-
-
+    
     while(!tfe.isWin() && !tfe.isLose()) {
         std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
         MCT mct(tfe);

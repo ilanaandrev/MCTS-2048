@@ -53,13 +53,13 @@ void rotate_grid_90(uint *A);
 
 // Get the difference matrix.
 // Returns a new array of dim(GRID_WIDTH - 1, GRID_WIDTH)
-uint* diff_grid(uint *A);
+long long int* diff_grid(uint *A);
 
 /* Matrix Specific Functions */
 // These functions require specific size of grid since not assumed.
 
 // Clip values to max and min if they exceed.
-void clip(uint *A, uint min, uint max, uint size);
+void clip(long long int* A, long long int min, long long int max, uint size);
 
 // Returns a summed number of the all the elements in the matrix.
-long long int sum(uint *A, uint size);
+long long int sum(long long int* A, uint size);
