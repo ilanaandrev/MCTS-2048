@@ -10,6 +10,7 @@
 #include <math.h>
 #include <float.h>
 #include <time.h>
+#include <climits>
 
 #include "TFE.hpp"
 #include "MCTNode.hpp"
