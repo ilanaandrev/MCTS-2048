@@ -15,6 +15,7 @@ MCT::MCT(TFE &tfe) {
 MCT::~MCT() {
     // Depth first search delete.
     std::vector<MCTNode*> stack;
+    stack.push_back(root);
     while(!stack.empty()) {
         MCTNode *cur = stack.back();
         stack.pop_back();
