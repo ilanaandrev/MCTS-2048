@@ -63,9 +63,9 @@ uint * MCTNode::optToGrid(uint opt) {
     move_grid(res, d);
 
     if(v == 0)
-        AC(res, (uint) (loc % DIR_SIZE), (uint) (loc / DIR_SIZE)) = 2;
+        res[loc] = 2;
     else
-        AC(res, (uint) (loc % DIR_SIZE), (uint) (loc / DIR_SIZE)) = 4;
+        res[loc] = 4;
     
     return res;
 }
