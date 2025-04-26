@@ -36,6 +36,9 @@ Checkered patterns are bad in 2048. Checkered patterns mean more directional mov
 | grid_util.cpp | File to hold grid manipulation helper functions. |
 | config.cpp | Config files. |
 
+## Edits
+Ilana added a running loop within main to continue playing up to a 100 games, though this would take a long time. Ilana also had "my-naive-output" showing the output she got after running 16 games herself. Main function was changed to print to seperate txt files rather than the terminal.
+
 ## Common Questions
 ### Can I Use This Idea for a Better Version or Iteration?
 Sure! I mean, MCST is a methodology that has been known for a while. If you feel that this project has lead significantly to your next project, I would greatly appreciate a shout out or link to my website :) Good luck!
