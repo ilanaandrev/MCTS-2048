@@ -167,6 +167,16 @@ void print_grid(uint *A) {
     }
 }
 
+void printGraph(uint* A, std::ostream& out) {
+    for (int y = 0; y < 4; ++y) {
+        for (int x = 0; x < 4; ++x) {
+            out.width(5);
+            out << A[y * 4 + x];
+        }
+        out << "\n";
+    }
+}
+
 std::vector<std::pair<char, uint *>> avail_dir(uint *grid) {
     std::vector<std::pair<char, uint *>> res;
     // If empty, we can take any direction

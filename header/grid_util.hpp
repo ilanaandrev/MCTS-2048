@@ -45,6 +45,9 @@ uint max_grid(uint *grid);
 // Print the grid.
 void print_grid(uint *A);
 
+// Print the graph
+void printGraph(uint* A, std::ostream& out);
+
 // Check available directions.
 std::vector<std::pair<char, uint *>> avail_dir(uint *grid);
 

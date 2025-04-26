@@ -1,0 +1,10 @@
+Game #5
+Final Board:
+    2    4    2    4
+   64   16    8    2
+    4  128  256    4
+    2    4   32    2
+
+Is Win?: 0
+Is Lose?: 1
+Time (seconds): 235.998

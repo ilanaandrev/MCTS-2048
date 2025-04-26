@@ -1,0 +1,10 @@
+Game #8
+Final Board:
+    2    8   32    2
+    4   32    2    8
+   16    4   16    2
+    4   64    4    8
+
+Is Win?: 0
+Is Lose?: 1
+Time (seconds): 92.0051

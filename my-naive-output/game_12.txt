@@ -1,0 +1,10 @@
+Game #12
+Final Board:
+    8    4   16    8
+    2   16    4   64
+    8    2   64    2
+    2    4    2    8
+
+Is Win?: 0
+Is Lose?: 1
+Time (seconds): 92.9947

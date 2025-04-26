@@ -1,0 +1,10 @@
+Game #10
+Final Board:
+    2    4   16    4
+  128   16    4    2
+    2    4   32    4
+   64    2   16    2
+
+Is Win?: 0
+Is Lose?: 1
+Time (seconds): 137.031

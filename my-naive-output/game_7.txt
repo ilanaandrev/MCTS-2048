@@ -1,0 +1,10 @@
+Game #7
+Final Board:
+    8    2   16    2
+    2    4   32    8
+    4   16   64    4
+   16    2    8    2
+
+Is Win?: 0
+Is Lose?: 1
+Time (seconds): 86.0034
