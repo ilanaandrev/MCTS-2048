@@ -1,0 +1,156 @@
+Game #0
+
+Final Board:
+    2    4    8    4
+    8  256   16    2
+    4  128   64    4
+    2    4   16    2
+Game Time (seconds): 243.786
+Highest Tile: 256
+
+Game #1
+
+Final Board:
+    4    8   32    8
+    2    4    8    4
+    8  128  256    2
+    2   16    4    8
+Game Time (seconds): 222.991
+Highest Tile: 256
+
+Game #2
+
+Final Board:
+    4    2    4    2
+    2  128    8    4
+    8   32   16  256
+   32    8    4    2
+Game Time (seconds): 230.997
+Highest Tile: 256
+
+Game #3
+
+Final Board:
+    2    4    8    2
+   16   64   16    4
+    4   32  256    8
+    2   64    8    2
+Game Time (seconds): 218.007
+Highest Tile: 256
+
+Game #4
+
+Final Board:
+    4  256    4    2
+    2    4   16    4
+    4   32   64   32
+    2   16    4    2
+Game Time (seconds): 200.001
+Highest Tile: 256
+
+Game #5
+
+Final Board:
+    2    8    2    4
+    4   32   16    8
+   32  128  256    4
+    4   16    8    2
+Game Time (seconds): 238.996
+Highest Tile: 256
+
+Game #6
+
+Final Board:
+    2    4    8    2
+    4    8   64    4
+    8    2   16    8
+    2  128    4    2
+Game Time (seconds): 115.002
+Highest Tile: 128
+
+Game #7
+
+Final Board:
+    4   32    2   16
+    2    4    8    2
+   64    2   64   16
+    8    4    8    2
+Game Time (seconds): 108
+Highest Tile: 64
+
+Game #8
+
+Final Board:
+    2   16    4    2
+    8  128   64    8
+   64    4    8    4
+    4   32    4    2
+Game Time (seconds): 163.996
+Highest Tile: 128
+
+Game #9
+
+Final Board:
+    8    4    2    4
+   16  256    8   16
+    2    4   32    4
+    4    2   16    2
+Game Time (seconds): 169.998
+Highest Tile: 256
+
+Game #10
+
+Final Board:
+    2    4  256    2
+    4   16    2    4
+    2   64   16   32
+    4    8    2    4
+Game Time (seconds): 186.015
+Highest Tile: 256
+
+Game #11
+
+Final Board:
+    2    8    2    4
+    4   64    4    2
+    8   16    2   16
+    2    4    8    2
+Game Time (seconds): 532.988
+Highest Tile: 64
+
+Game #12
+
+Final Board:
+    2    4   16    2
+    4    2    8   32
+   64    4  128    4
+    4    2    4    2
+Game Time (seconds): 126.011
+Highest Tile: 128
+
+Game #13
+
+Final Board:
+    4    2    4    2
+    2   32   16    4
+   16    8   32  128
+    8    2   16    4
+Game Time (seconds): 123.012
+Highest Tile: 128
+
+Game #14
+
+Final Board:
+    4    2   16    2
+  128    8    2    8
+    4   16    4   16
+    2   64    8    4
+Game Time (seconds): 1619.97
+Highest Tile: 128
+
+=============================
+Run Summary:
+Total Games Played: 15
+Average Highest Tile: 187.733
+Max Highest Tile: 256
+Average Game Time (seconds): 299.985
